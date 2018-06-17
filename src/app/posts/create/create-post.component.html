@@ -1,0 +1,51 @@
+<!-- Simple Card which has various components of the rental craetion
+     ngModel helps with two way binding (import module in app.module.ts)
+//-->
+<!--
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>HELLO</mat-expansion-panel-header>
+    //-->
+  <mat-card>
+      <div class="example-container">
+      <mat-card-title>Create a rental post!</mat-card-title>
+      <mat-form-field>
+        <input matInput placeholder="Post Title"  [(ngModel)]="enteredValue">
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput placeholder="Description"></textarea>
+      </mat-form-field>
+      <div class="example-container-g">
+        <mat-form-field>
+          <mat-select placeholder="Rent/To Rent">
+            <mat-option value="option">Rent</mat-option>
+            <mat-option value="option">To Rent</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Shipping Available">
+            <mat-option value="option">Available</mat-option>
+            <mat-option value="option">Not Availablle</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Max Rent Length">
+              <mat-option value="option">1 Week</mat-option>
+              <mat-option value="option">2 Weeks</mat-option>
+              <mat-option value="option">3 Weeks</mat-option>
+              <mat-option value="option">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>
+    <button
+      class="fix-button"
+      mat-raised-button
+      color="primary"
+      (click)="onAddPost()">Submit</button>
+  </mat-card>
+<!--
+</mat-expansion-panel>
+</mat-accordion>//-->

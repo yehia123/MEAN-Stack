@@ -1,0 +1,13 @@
+<div>
+  <mat-accordion>
+    <!--ngFor is used to loop through html elements to repeat
+    * as needed for the amount of data outputted
+    -->
+    <mat-expansion-panel *ngFor="let post of posts" >
+      <mat-expansion-panel-header>
+        {{ post.title }}
+      </mat-expansion-panel-header>
+      <p>{{ post.content }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

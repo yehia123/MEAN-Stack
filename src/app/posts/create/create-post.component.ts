@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 /* Component which creates a rental post
 * onAddPost() currently uses two way binding with enteredValue
+* EventEmitter
 */
 @Component({
   selector: 'app-create-post',
@@ -8,10 +9,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent {
-  newPost = '';
-  enteredValue = '';
+  enteredTitle = '';
+  enteredDesc = '';
+  postCreated = new EventEmitter();
+
+
+  rentSelection = '';
+  shippingSelection = '';
+  renLength = '';
 
   onAddPost() {
-    this.newPost = this.enteredValue;
+    const post = {
+      title: this.enteredTitle,
+      content: this.enteredDesc
+    };
+    this.postCreated.emit(post);
   }
 }

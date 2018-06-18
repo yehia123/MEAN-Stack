@@ -10,11 +10,11 @@
       <div class="example-container">
       <mat-card-title>Create a rental post!</mat-card-title>
       <mat-form-field>
-        <input matInput placeholder="Post Title"  [(ngModel)]="enteredValue">
+        <input matInput placeholder="Post Title"  [(ngModel)]="enteredTitle">
       </mat-form-field>
 
       <mat-form-field>
-        <textarea matInput placeholder="Description"></textarea>
+        <textarea matInput placeholder="Description" [(ngModel)]="enteredDesc" ></textarea>
       </mat-form-field>
       <div class="example-container-g">
         <mat-form-field>

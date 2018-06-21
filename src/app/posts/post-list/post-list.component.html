@@ -1,17 +1,18 @@
 <hr class="style12">
 <div>
-  <mat-accordion multi="true" *ngIf="posts.length > 0">
     <!--ngFor is used to loop through html elements to repeat
     * as needed for the amount of data outputted
     * nfIf used to display part parts of code
     * you can add in functions, variable conditions
     -->
-    <mat-expansion-panel *ngFor="let post of posts" >
-      <mat-expansion-panel-header>
+    <mat-card *ngFor="let post of posts" >
+      <mat-card-title>
         {{ post.title }}
-      </mat-expansion-panel-header>
+      </mat-card-title>
+      <mat-card-content>
+        {{ post.content }}
+      </mat-card-content>
       <p>{{ post.content }}</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </mat-card>
   <p class="mat-body-1" *ngIf="posts.length == 0"></p>
 </div>

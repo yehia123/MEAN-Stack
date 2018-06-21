@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:server": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -22,9 +23,14 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "body-parser": "^1.18.3",
     "boostrap": "^2.0.0",
     "core-js": "^2.5.4",
+    "express": "^4.16.3",
     "font-awesome": "^4.7.0",
+    "mongodb": "^3.0.10",
+    "mongoose": "^5.1.6",
+    "ngx-bootstrap": "^3.0.0",
     "npm": "^6.1.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

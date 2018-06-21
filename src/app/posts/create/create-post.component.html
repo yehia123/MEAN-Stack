@@ -7,15 +7,37 @@
     <mat-expansion-panel-header>HELLO</mat-expansion-panel-header>
     //-->
   <mat-card>
+      <form (submit)="onAddPost(postForm)" #postForm="ngForm">
       <div class="example-container">
       <mat-card-title>Create a rental post!</mat-card-title>
-      <mat-form-field>
-        <input matInput placeholder="Post Title"  [(ngModel)]="enteredTitle">
-      </mat-form-field>
+      <!--With Forms we remove directive databinding
+        Used # (directive) and linked it either to ngForm or ngModel
+        used it for ngIf for error statement
+      //-->
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Post Title"
+            type="text"
+            name="title"
+            ngModel
+            required
+            #title="ngModel">
+            <mat-error *ngIf="title.invalid">Please enter a post title!</mat-error>
+        </mat-form-field>
 
-      <mat-form-field>
-        <textarea matInput placeholder="Description" [(ngModel)]="enteredDesc" ></textarea>
-      </mat-form-field>
+        <mat-form-field>
+          <textarea
+            matInput
+            rows="4"
+            placeholder="Description"
+            name="content"
+            ngModel
+            required
+            #content="ngModel"></textarea>
+            <mat-error *ngIf="content.invalid">Please enter post content!</mat-error>
+        </mat-form-field>
+
       <div class="example-container-g">
         <mat-form-field>
           <mat-select placeholder="Rent/To Rent">
@@ -44,7 +66,8 @@
       class="fix-button"
       mat-raised-button
       color="primary"
-      (click)="onAddPost()">Submit</button>
+      type="submit">Submit</button>
+    </form>
   </mat-card>
 <!--
 </mat-expansion-panel>

@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.setHeader(
-    "Access-Control-Allow-Method",
+    "Access-Control-Allow-Methods",
     "GET, POST, PATCH, DELETE, OPTIONS"
   );
   next();
@@ -70,25 +70,29 @@ app.use((req, res, next)=> {
  * which uses /posts url to reach this code
  * initilize posts in the backend
  * in posts we create some new objects
- * we can USE or GET here
+ * we can USE or GET here (fetching posts)
+ * Post model method (mongoose) with find() to fetch the data and return all entries
 */
 app.get("/api/posts", (req, res, next) => {
-  const posts = [
-    {
-      id: "fad123455",
-      title: "Forklift for rent",
-      content: "Available"
-    },
-    {
-      id: "faaswqa2345sdas",
-      title: "Power Drill for rent",
-      content: "50 Dollars a day"
-    }
-  ];
-  res.status(200).json({
-    message: 'posts fetched success',
-    posts: posts
+  Post.find()
+    .then(documents => {
+      res.status(200).json({
+        message: 'posts fetched success',
+        posts: documents
+      });
+    });
+});
+
+/** To delete documents,send ID as part of the url NOT request body
+ * deleting the item through mongoose query
+ * still need to automatically update the front end after deleting
+*/
+app.delete("/api/posts/:id", (req, res, next ) => {
+  Post.deleteOne({ _id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Post deleted" });
   });
 });
+
 /** export class */
 module.exports = app;

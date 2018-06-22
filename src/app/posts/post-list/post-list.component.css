@@ -3,3 +3,13 @@ hr.style12 {
 	background: url(http://ibrahimjabbari.com/english/images/hr-12.png) repeat-x 0 0;
     border: 0;
 }
+.example-card {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.example-header-image {
+  background-image: url('/assets/images/user.svg');
+  background-size: cover;
+}

@@ -8,9 +8,11 @@
     <button class = "menu"mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <button type="button" class="btn btn-gplus"><i class="fa fa-google-plus pr-1"></i> Google +</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item type="button" class="btn btn-gplus" (click)="signInWithFB()"><i class="fa fa-google-plus pr-1"></i> Facebook</button>
+      <button mat-menu-item>Create Event</button>
     </mat-menu>
   </span>
   </mat-toolbar>
+
+
 

@@ -1,4 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import { AuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
+import { NgNoValidate } from '@angular/forms/src/directives/ng_no_validate_directive';
 
 /**
  * @title Basic menu
@@ -9,6 +14,35 @@ import {Component} from '@angular/core';
   styleUrls: ['./toolbar.component.css']
 })
 
-export class ToolBarComponent {
+export class ToolBarComponent implements OnInit {
+
+    public user: SocialUser;
+    public loggedIn: boolean;
+
+    constructor(private authService: AuthService) { }
+
+    ngOnInit() {
+      this.authService.authState.subscribe((user) => {
+        this.user = user;
+        this.loggedIn = (user != null);
+      });
+    }
+
+    signInWithGoogle(): void {
+      this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+
+    signInWithFB(): void {
+      this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    }
+
+    signInWithLinkedIn(): void {
+      this.authService.signIn(LinkedInLoginProvider.PROVIDER_ID);
+    }
+
+    signOut(): void {
+      this.authService.signOut();
+    }
 
 }
+

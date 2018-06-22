@@ -15,20 +15,44 @@ import {
   MatExpansionModule
 } from '@angular/material';
 
+import {
+  SocialLoginModule,
+  AuthServiceConfig
+} from 'angularx-social-login';
+
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  LinkedInLoginProvider
+} from 'angularx-social-login';
+
 import { AppComponent } from './app.component';
 import { ToolBarComponent } from './signin/toolbar/toolbar.component';
-import { SigninButtonComponent } from './signin/button/signin-button.component';
 import { CreateTextComponent } from './posts/text/create-text-post.component';
 import { CreatePostComponent } from './posts/create/create-post.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('136274820776-d0vnpmb4l92sbarbm36k7d549pttkuu7.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('1701896999876359')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolBarComponent,
-    SigninButtonComponent,
     CreateTextComponent,
     CreatePostComponent,
     PostListComponent
@@ -46,9 +70,17 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     FormsModule,
     MatButtonModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+}

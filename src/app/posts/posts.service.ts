@@ -2,6 +2,7 @@ import { Post } from './post.model';
 /** Subject is similar to event emitter */
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 /** Injectable can be used to directly put it in providers array */
 
@@ -17,14 +18,25 @@ export class PostService {
 * Uses http get (generic method) to connect with express backend
 * to listen you need subscribe(neew data, error, when it completes)
 * get formats the data for us
+* Pipe() is an operator that maps
+* takes the data posted maps it into the new array with specified content with map() method
 */
   getPosts() {
     this.http
-    .get<{message: string, posts: Post[]}>(
+    .get<{message: string, posts: any}>(
       'http://localhost:3000/api/posts'
       )
-      .subscribe((postData) => {
-        this.posts = postData.posts;
+      .pipe(map((postData) => {
+        return postData.posts.map(post => {
+          return {
+            title: post.title,
+            content: post.content,
+            id: post._id
+          };
+        });
+      }))
+      .subscribe(transformedPosts => {
+        this.posts = transformedPosts;
         this.postsUpdated.next([...this.posts]);
       });
   }
@@ -41,6 +53,13 @@ export class PostService {
         console.log(responseData.message);
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
+      });
+  }
+
+  deletePost(postId: string) {
+    this.http.delete('http://localhost:3000/api/posts/' + postId)
+      .subscribe(() => {
+        console.log('Deleted!');
       });
   }
 }

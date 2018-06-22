@@ -61,6 +61,10 @@
             </mat-select>
           </mat-form-field>
       </div>
+      <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+          <input type="file" #filePicker>
+        </div>
     </div>
     <button
       class="fix-button"

@@ -31,6 +31,7 @@ import { ToolBarComponent } from './signin/toolbar/toolbar.component';
 import { CreateTextComponent } from './posts/text/create-text-post.component';
 import { CreatePostComponent } from './posts/create/create-post.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
+import { ModalService } from './posts/create/create-service';
 
 
 const config = new AuthServiceConfig([
@@ -74,6 +75,7 @@ export function provideConfig() {
     SocialLoginModule
   ],
   providers: [
+    ModalService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

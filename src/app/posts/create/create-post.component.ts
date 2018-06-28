@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Injectable } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+
 import { NgForm } from '@angular/forms';
 import { PostService } from '../posts.service';
-import { ModalService } from './create-service';
+
 /* Component which creates a rental post
 * onAddPost() currently uses two way binding with enteredValue
 * EventEmitter
@@ -11,7 +13,7 @@ import { ModalService } from './create-service';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent implements OnInit {
+export class CreatePostComponent {
   enteredTitle = '';
   enteredDesc = '';
   /** The Emitter along with the output is what connects this
@@ -23,21 +25,9 @@ export class CreatePostComponent implements OnInit {
   renLength = '';
 
   constructor(
-    public postsService: PostService,
-    private modalService: ModalService
+    public postsService: PostService
   ) {}
 
-  ngOnInit() {
-      this.enteredDesc = 'Please enter detailed descrpition';
-  }
-
-  openModal(id: string) {
-      this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-      this.modalService.close(id);
-  }
 
   onAddPost(form: NgForm) {
     /** exits the method and the post does not get added */

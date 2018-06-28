@@ -6,3 +6,8 @@ export interface Post {
   title: string;
   content: string;
 }
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}

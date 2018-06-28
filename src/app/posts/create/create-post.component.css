@@ -29,3 +29,7 @@
 .hidebutton{
   visibility: hidden;
 }
+
+.spacing{
+  margin-bottom: 5px;
+}

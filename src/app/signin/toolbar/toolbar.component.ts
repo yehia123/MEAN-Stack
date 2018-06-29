@@ -4,6 +4,9 @@ import { AuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
 
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MyDialogComponent } from '../../my-dialog/my-dialog.component';
+
 
 /**
  * @title Basic menu
@@ -19,7 +22,10 @@ export class ToolBarComponent implements OnInit {
     public user: SocialUser;
     public loggedIn: boolean;
 
-    constructor(private authService: AuthService) { }
+    animal: string;
+    name: string;
+
+    constructor(private authService: AuthService, public dialog: MatDialog) { }
 
     ngOnInit() {
       this.authService.authState.subscribe((user) => {
@@ -28,6 +34,17 @@ export class ToolBarComponent implements OnInit {
       });
     }
 
+    openDialog(): void {
+      const dialogRef = this.dialog.open(MyDialogComponent, {
+        width: '600px',
+        data: {name: this.name, animal: this.animal}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.animal = result;
+      });
+    }
     signInWithGoogle(): void {
       this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     }

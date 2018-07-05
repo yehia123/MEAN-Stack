@@ -1,21 +1,5 @@
 <hr class="style12">
 <div>
-    <!--ngFor is used to loop through html elements to repeat
-    * as needed for the amount of data outputted
-    * nfIf used to display part parts of code
-    * you can add in functions, variable conditions
-
-    <mat-card *ngFor="let post of posts" >
-      <mat-card-title>
-        {{ post.title }}
-      </mat-card-title>
-      <mat-card-content>
-        {{ post.content }}
-      </mat-card-content>
-      <p>{{ post.content }}</p>
-      <button mat-button color="warn" (click)="onDelete(post.id)"> DELETE</button>
-    </mat-card>
-  <p class="mat-body-1" *ngIf="posts.length == 0"></p>-->
   <mat-card class="example-card" *ngFor="let post of posts">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>

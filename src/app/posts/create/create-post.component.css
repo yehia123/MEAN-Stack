@@ -33,3 +33,11 @@
 .spacing{
   margin-bottom: 5px;
 }
+
+.img-prev{
+  height: 5rem;
+  margin: 1rem 0;
+}
+.img-prev img{
+  height: 100%;
+}

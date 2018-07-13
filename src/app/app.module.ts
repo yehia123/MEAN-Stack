@@ -32,6 +32,7 @@ import { CreateTextComponent } from './posts/text/create-text-post.component';
 import { CreatePostComponent } from './posts/create/create-post.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -62,6 +63,7 @@ export function provideConfig() {
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatMenuModule,

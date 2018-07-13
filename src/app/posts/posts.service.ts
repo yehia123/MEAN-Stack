@@ -44,6 +44,13 @@ export class PostService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+  /**
+   * pull out all the objects in the arrray, then fetch it into the post service
+   * @param id for rout
+   */
+  getPost(id: string) {
+    return {...this.posts.find(p => p.id === id)};
+  }
   /** Async posts if succesful from server side by addingt it in subscribe method */
   addPost(title: string, content: string) {
     const post: Post = {id: null, title: title, content: content};
@@ -55,11 +62,13 @@ export class PostService {
         this.postsUpdated.next([...this.posts]);
       });
   }
-
+  /** Add Authorization part */
   deletePost(postId: string) {
     this.http.delete('http://localhost:3000/api/posts/' + postId)
       .subscribe(() => {
-        console.log('Deleted!');
+        const updatedPosts = this.posts.filter(post => post.id !== postId);
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
       });
   }
 }

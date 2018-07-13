@@ -4,6 +4,8 @@ import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../posts.service';
 import { mimeType } from './mime-type.validator';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Post } from '../post.model';
 
 /* Component which creates a rental post
 * onAddPost() currently uses two way binding with enteredValue
@@ -14,11 +16,14 @@ import { mimeType } from './mime-type.validator';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent {
+export class CreatePostComponent implements OnInit {
   enteredTitle = '';
   enteredDesc = '';
+  private mode = 'create';
+  private postId: string;
   isLoading = false;
   imagePreview: string;
+  private post: Post;
   /** The Emitter along with the output is what connects this
    * file to the outside and parent component such as app.comp.html/ts
    * generic type Post <> similar to Java
@@ -30,7 +35,8 @@ export class CreatePostComponent {
 
 
   constructor(
-    public postsService: PostService
+    public postsService: PostService,
+    public route: ActivatedRoute
   ) {}
   /** Control form using Reactive Forms
    * async Validator to check if it is the right type of file
@@ -64,7 +70,18 @@ export class CreatePostComponent {
    };
    reader.readAsDataURL(file);
   }
-
+  ngOnInit() {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('postId')) {
+        this.mode = 'edit';
+        this.postId = paramMap.get('postId');
+        this.post = this.postsService.getPost(this.postId);
+      } else {
+        this.mode = '';
+        this.postId = null;
+      }
+    });
+  }
 
   onAddPost() {
     /** exits the method and the post does not get added */

@@ -1,8 +1,10 @@
 <!-- Simple Card which has various components of the rental craetion
      ngModel helps with two way binding (import module in app.module.ts)
-//-->
+    Spinner can be added whenever.
+     //-->
+
   <mat-card id="modal-1">
-      <form [formGroup]="form" (submit)="onAddPost()">
+      <form [formGroup]="form" (submit)="onSavePost()">
       <div class="example-container">
       <mat-card-title>Create a rental post!</mat-card-title>
       <!--With Forms we remove directive databinding

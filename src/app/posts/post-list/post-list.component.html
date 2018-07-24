@@ -5,7 +5,7 @@
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>ForkLift</mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="/assets/images/forklift-1.jpg" alt="Photo oof AL">
+      <img mat-card-image [src]="post.imagePath" alt="post.title">
       <mat-card-content>
         <p>
           {{ post.content }}

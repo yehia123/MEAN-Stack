@@ -12,7 +12,8 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatButtonModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {
@@ -77,7 +78,8 @@ export function provideConfig() {
     MatExpansionModule,
     HttpClientModule,
     SocialLoginModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     MyDialogComponent

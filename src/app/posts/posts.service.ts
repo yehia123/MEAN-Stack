@@ -1,5 +1,7 @@
 import { Post } from './post.model';
-/** Subject is similar to event emitter */
+/** Subject is similar to event emitter
+ * instance of http client
+*/
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +14,10 @@ export class PostService {
   private posts: Post [] = [];
   private postsUpdated = new Subject<Post[]>();
   /** get http client */
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
 /** Spraed operator
 * Uses this in provider array to allow use in different component
@@ -33,7 +38,9 @@ export class PostService {
             title: post.title,
             content: post.content,
             id: post._id,
-            imagePath: post.imagePath
+            imagePath: post.imagePath,
+            fbImagePath: post.fbImagePath,
+            fbName: post.fbName
           };
         });
       }))
@@ -63,11 +70,13 @@ export class PostService {
    * added ID for posts
    * the id gets fetched from response data (app.js)
    * */
-  addPost(title: string, content: string, image: File) {
+  addPost(title: string, content: string, image: File, fbImagePath: string, fbName: string) {
     const postData = new FormData();
     postData.append('title', title);
     postData.append('content', content);
     postData.append('image', image, title);
+    postData.append('fbImagePath', fbImagePath);
+    postData.append('fbName', fbName);
     this.http
       .post<{message: string, post: Post}>(
         'http://localhost:3000/api/posts',
@@ -78,7 +87,9 @@ export class PostService {
           id: responseData.post.id,
           title: title,
           content: content,
-          imagePath: responseData.post.imagePath
+          imagePath: responseData.post.imagePath,
+          fbImagePath: responseData.post.fbImagePath,
+          fbName: responseData.post.fbName
         };
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
@@ -90,7 +101,7 @@ export class PostService {
    * EDIT BUTTON DOES NOT WORK YET... EDITS TO BE MADE
    */
   updatePost(id: string, title: string, content: string) {
-    const post: Post = { id: id, title: title, content: content, imagePath: null };
+    const post: Post = { id: id, title: title, content: content, imagePath: null, fbImagePath: null, fbName: null };
     this.http.put('http://localhost:3000/api/posts/' + id, post)
       .subscribe(response => {
         const updatedPosts = [...this.posts];

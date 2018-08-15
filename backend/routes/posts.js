@@ -50,7 +50,9 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    imagePath: url + "/images/" + req.file.filename
+    imagePath: url + "/images/" + req.file.filename,
+    fbImagePath: req.body.fbImagePath,
+    fbName: req.body.fbName
   });
   /**
    * instead of calling each variable from post we can usew this instead
@@ -63,7 +65,9 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
         id: createdPost._id,
         title: createdPost.title,
         content: createdPost.content,
-        imagePath: createdPost.imagePath
+        imagePath: createdPost.imagePath,
+        fbImagePath: createdPost.fbImagePath,
+        fbName: createdPost.fbName
       }
     });
   });

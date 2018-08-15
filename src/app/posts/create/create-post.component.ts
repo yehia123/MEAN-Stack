@@ -7,6 +7,10 @@ import { mimeType } from './mime-type.validator';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../post.model';
 
+
+import { AuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+
 /* Component which creates a rental post
 * onAddPost() currently uses two way binding with enteredValue
 * EventEmitter
@@ -24,20 +28,18 @@ export class CreatePostComponent implements OnInit {
   isLoading = false;
   imagePreview: string;
   private post: Post;
-  /** The Emitter along with the output is what connects this
-   * file to the outside and parent component such as app.comp.html/ts
-   * generic type Post <> similar to Java
-   */
-  rentSelection = '';
-  shippingSelection = '';
-  renLength = '';
 
-
+  public user: SocialUser;
+  public loggedIn: boolean;
+  public fbPhoto: string;
+  public fullName: string;
 
   constructor(
     public postsService: PostService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private authService: AuthService
   ) {}
+
   /** Control form using Reactive Forms
    * async Validator to check if it is the right type of file
    */
@@ -52,6 +54,12 @@ export class CreatePostComponent implements OnInit {
       validators:
        [Validators.required],
        asyncValidators: [mimeType]
+    }),
+    fbImagePath: new FormControl('',  {
+      validators: [Validators.required]
+    }),
+    fbName: new FormControl('',  {
+      validators: [Validators.required]
     })
   });
   /** Method in intake the uplaoded image using HTMLInputElement method which
@@ -71,26 +79,15 @@ export class CreatePostComponent implements OnInit {
    reader.readAsDataURL(file);
   }
   ngOnInit() {
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('postId')) {
-        this.mode = 'edit';
-        this.postId = paramMap.get('postId');
-        this.isLoading = true;
-        this.postsService.getPost(this.postId).subscribe(postData => {
-          // Asynchorously call
-          this.isLoading = false;
-          this.post = {
-            id: postData._id,
-            title: postData.title,
-            content: postData.content,
-            imagePath: null
-          };
-        });
-      } else {
-        this.mode = '';
-        this.postId = null;
-      }
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
     });
+        this.mode = '';
+        this.form.patchValue({
+          fbImagePath: this.user.photoUrl,
+          fbName: this.user.name
+        });
   }
   /**
    * Add error handling
@@ -104,7 +101,10 @@ export class CreatePostComponent implements OnInit {
       this.postsService.addPost(
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image);
+        this.form.value.image,
+        this.form.value.fbImagePath,
+        this.form.value.fbName
+      );
     } else {
       this.postsService.updatePost(
         this.postId,

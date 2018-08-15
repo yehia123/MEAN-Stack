@@ -10,6 +10,5 @@ hr.style12 {
 }
 
 .example-header-image {
-  background-image: url('/assets/images/user.svg');
   background-size: cover;
 }

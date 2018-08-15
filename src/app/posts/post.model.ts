@@ -6,6 +6,8 @@ export interface Post {
   title: string;
   content: string;
   imagePath: string;
+  fbImagePath: string;
+  fbName: string;
 }
 
 export interface DialogData {

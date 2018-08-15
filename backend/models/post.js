@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  imagePath: { type: String, required: true}
+  imagePath: { type: String, required: true},
+  fbImagePath: { type: String, required: true},
+  fbName: { type: String, required: true}
 });
 
 /** Turn it into a model by using a model() function

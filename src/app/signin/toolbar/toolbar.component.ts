@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 import { AuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
@@ -6,7 +6,6 @@ import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } fro
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MyDialogComponent } from '../../my-dialog/my-dialog.component';
-
 
 /**
  * @title Basic menu
@@ -22,10 +21,15 @@ export class ToolBarComponent implements OnInit {
     public user: SocialUser;
     public loggedIn: boolean;
 
-    animal: string;
-    name: string;
+
 
     constructor(private authService: AuthService, public dialog: MatDialog) { }
+
+    /** Add event emitter to pass the fb user to create-list component
+     * Pass the user variable to child component create-post
+     */
+    @Output() fbUser: EventEmitter<any> = new EventEmitter();
+
 
     ngOnInit() {
       this.authService.authState.subscribe((user) => {
@@ -36,13 +40,11 @@ export class ToolBarComponent implements OnInit {
 
     openDialog(): void {
       const dialogRef = this.dialog.open(MyDialogComponent, {
-        width: '600px',
-        data: {name: this.name, animal: this.animal}
+        width: '600px'
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        this.animal = result;
       });
     }
     signInWithGoogle(): void {
@@ -58,7 +60,10 @@ export class ToolBarComponent implements OnInit {
     }
 
     signOut(): void {
-      this.authService.signOut();
+      setTimeout(() => {
+        this.authService.signOut();
+        this.loggedIn = false;
+      }, 3000);
     }
 
 }

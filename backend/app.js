@@ -24,7 +24,8 @@ mongoose.connect("mongodb+srv://jb:QyedOIEb9mEyHxYm@cluster0-ykbqi.mongodb.net/t
 */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/images", express.static(path.join("backend/images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/", express.static(path.join(__dirname, "angular")));
 /** For all incoming requests
  * you add the header and what files to target
  * you can choose as many origin or take out as much needed
@@ -46,6 +47,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/posts", postsRoutes);
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular", 'index.html'));
+});
 
 /** export class */
 module.exports = app;

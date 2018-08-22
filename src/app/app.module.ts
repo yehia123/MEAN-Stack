@@ -39,6 +39,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebook} from '@fortawesome/free-brands-svg-icons';
+
+library.add(faFacebook);
 
 
 const config = new AuthServiceConfig([
@@ -83,7 +88,8 @@ export function provideConfig() {
     HttpClientModule,
     SocialLoginModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FontAwesomeModule
   ],
   entryComponents: [
     MyDialogComponent

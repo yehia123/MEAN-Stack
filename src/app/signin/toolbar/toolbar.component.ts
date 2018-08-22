@@ -7,6 +7,7 @@ import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } fro
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MyDialogComponent } from '../../my-dialog/my-dialog.component';
 
+
 /**
  * @title Basic menu
  */
